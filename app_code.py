@@ -3,7 +3,6 @@ import streamlit as st
 import altair as alt
 import seaborn as sns
 import matplotlib.pyplot as plt
-import matplotlib.font_manager as fm
 
 # Load your dataset
 url = 'https://raw.githubusercontent.com/natelewis17/STAT386_Project/main/kanji.csv'
@@ -97,7 +96,7 @@ if group_by_option_top20 == 'Stroke_Count':
 elif group_by_option_top20 == 'JLPT':
     subcategory_options = st.sidebar.selectbox('Select JLPT Level', ['1', '2', '3', '4', '5'], key='jlpt_subcategory')
 elif group_by_option_top20 == 'Grade':
-    subcategory_options = st.sidebar.selectbox('Select Grade Level', [str(i) for i in range(1, 13)], key='grade_subcategory')
+    subcategory_options = st.sidebar.selectbox('Select Grade Level', ['1', '2', '3', '4', '5', '6', '8', '9', '10'], key='grade_subcategory')
 elif group_by_option_top20 == 'In_Joyo':
     subcategory_options = st.sidebar.selectbox('Select In_Joyo', ['Yes', 'No'], key='in_joyo_subcategory')
 
@@ -128,20 +127,13 @@ else:
 if not filtered_top20_df.empty:
     st.subheader(f'Top 20 Kanji Distribution - Grouped by {group_by_option_top20}')
 
-    # Load the Meiryo font
-    font_path = 'MEIRYO.TTC'
-    prop = fm.FontProperties(fname=font_path)
-
-    # Set the font to Meiryo for correct rendering of Kanji characters
-    plt.rcParams['font.family'] = prop.get_name()
-
-    # Create a bar plot for top 20 Kanji by Wiki_Count
+    # Create a bar plot for top 20 Kanji by Wiki_Count, using 'Meanings' on the y-axis
     top_n = 20
     fig, ax = plt.subplots(figsize=(10, 6))
-    sns.barplot(x='Wiki_Count', y='Kanji', data=filtered_top20_df.head(top_n), palette='viridis', ax=ax)
+    sns.barplot(x='Wiki_Count', y='Meanings', data=filtered_top20_df.head(top_n), palette='viridis', ax=ax)
     plt.title(f'Top {top_n} Kanji by Wiki_Count')
     plt.xlabel('Wiki_Count')
-    plt.ylabel('Kanji')
+    plt.ylabel('Meanings')
 
     # Display the plot using st.pyplot(fig)
     st.pyplot(fig)
@@ -149,5 +141,6 @@ if not filtered_top20_df.empty:
     # Add a thank you section at the bottom
 st.sidebar.markdown("---")
 st.sidebar.markdown("### Thank you for exploring my project!")
-st.sidebar.markdown("If you're interested in more details about the project, you can find the source code on GitHub:")
+st.sidebar.markdown("If you're interested in more details about the project here's a link to my GitHub repo and blog:")
 st.sidebar.markdown("[GitHub Repository](https://github.com/natelewis17/STAT386_Project)")
+st.sidebar.markdown("[Blog](https://natelewis17.github.io/)")
