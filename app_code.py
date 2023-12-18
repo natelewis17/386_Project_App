@@ -23,7 +23,7 @@ if not filtered_df.empty:
     st.write(f"Showing results for: {user_input}")
     st.write(filtered_df)
 
-    # More detailed information (you can customize this based on your columns)
+    # More detailed information
     st.subheader('Details:')
     for index, row in filtered_df.iterrows():
         st.write(f"Kanji: {row['Kanji']}")
@@ -32,15 +32,6 @@ if not filtered_df.empty:
         # Add more columns as needed
 else:
     st.write(f"No matches found for: {user_input}. Please try something else.")
-
-# More detailed information
-if not filtered_df.empty:
-    st.subheader('Details:')
-    for index, row in filtered_df.iterrows():
-        st.write(f"Kanji: {row['Kanji']}")
-        st.write(f"Meanings: {row['Meanings']}")
-        st.write(f"JLPT Level: N{row['JLPT']}")
-        # Add more columns as needed
 
 # Visualization of Wiki_Ranking, Novel_Ranking, Newspaper_Ranking
 if not filtered_df.empty:
